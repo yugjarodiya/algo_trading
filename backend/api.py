@@ -14,19 +14,21 @@ app = Flask(__name__)
 @app.route("/username", methods=['POST'])
 def login():
     # username = request.form.get("username", "") # or request.form["username"]
-    title = request.json['username']
+    tker = request.json['username']
         # CREATE TICKER INSTANCE FOR AMAZON
-    amzn = yf.Ticker(str(title))
-    #amzn = yf.Ticker("AMZN")
+    amzn = yf.Ticker(tker)
 
     # GET TODAYS DATE AND CONVERT IT TO A STRING WITH YYYY-MM-DD FORMAT (YFINANCE EXPECTS THAT FORMAT)
     end_date = datetime.now().strftime('%Y-%m-%d')
-    amzn_hist = amzn.history(start='2022-01-01',end=end_date)
-    df =amzn_hist.values.tolist()
+    tker_hist = amzn.history(start='2022-01-01',end=end_date)
+    #format open, high, low, close, volume, div, stock split
+
+
+    df =tker_hist.values.tolist()
+    # result = "open for today is " + str(df[0][0])
     return jsonify(str(df))
 
         #return jsonify(username=username) # from flask import jsonify 
-    return jsonify(title)
 
 # @app.route("/send", methods=["GET", "POST"])
 # def send():
