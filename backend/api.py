@@ -19,14 +19,11 @@ def login():
     tker_hist = tker.history(start='2022-01-01',end=end_date)
     #format open, high, low, close, volume, div, stock split
 
-
     df =tker_hist.values.tolist()
-    i = 0
-    for row in df:
-        dict[i] = {"value":df[0],}
-        i+=1
+    
     # result = "open for today is " + str(df[0][0])
-    return jsonify((str(df)))
+   
+    return jsonify(str(df))
 
         #return jsonify(username=username) # from flask import jsonify 
 
