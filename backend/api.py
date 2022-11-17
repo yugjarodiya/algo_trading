@@ -3,30 +3,30 @@ import yfinance as yf
 from flask import Flask, jsonify, request
 from datetime import datetime
 import pandas as pd
-#import request
-
-
-
-
 
 app = Flask(__name__)
 
 @app.route("/username", methods=['POST'])
 def login():
+    dict = {}
     # username = request.form.get("username", "") # or request.form["username"]
     tker = request.json['username']
         # CREATE TICKER INSTANCE FOR AMAZON
-    amzn = yf.Ticker(tker)
+    tker = yf.Ticker(tker)
 
     # GET TODAYS DATE AND CONVERT IT TO A STRING WITH YYYY-MM-DD FORMAT (YFINANCE EXPECTS THAT FORMAT)
     end_date = datetime.now().strftime('%Y-%m-%d')
-    tker_hist = amzn.history(start='2022-01-01',end=end_date)
+    tker_hist = tker.history(start='2022-01-01',end=end_date)
     #format open, high, low, close, volume, div, stock split
 
 
     df =tker_hist.values.tolist()
+    i = 0
+    for row in df:
+        dict[i] = {"value":df[0],}
+        i+=1
     # result = "open for today is " + str(df[0][0])
-    return jsonify(str(df))
+    return jsonify((str(df)))
 
         #return jsonify(username=username) # from flask import jsonify 
 
